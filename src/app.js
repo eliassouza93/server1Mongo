@@ -1,5 +1,8 @@
 import express from "express";
 import db from './config/dbConect.js'
+import routes from './routes/index.js'
+
+
 
 
 db.on("error", console.log.bind(console, 'Erro de conexão'))
@@ -12,13 +15,12 @@ const app = express();
 
 app.use(express.json())
 
+routes(app)
+
 const livros = [
     { id: 1, 'titulo': 'Senhor dos Aneis' },
     { id: 2, 'titulo': 'O Hobbit' }
 ]
-app.get('/', (req, res) => {
-    res.status(200).send('Curso de Node')
-})
  
 app.get('/livros/:id', (req, res) => {
     let index = buscaLivro(req.params.id)
